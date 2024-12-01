@@ -31,19 +31,6 @@ public sealed partial class MainWindow : Window
         AppWindow.SetIcon("Assets/WindowIcon.ico");
 
         ExtendsContentIntoTitleBar = true;
-        SetTitleBar(AppTitleBar);
-
-        void onActivated(object s, WindowActivatedEventArgs e)
-        {
-            Activated -= onActivated;
-            TitleBarHelper.UpdateTitleBar(ElementTheme.Dark);
-            AppTitleBarText.Foreground = (SolidColorBrush)Application.Current.Resources[e.WindowActivationState switch
-            {
-                WindowActivationState.Deactivated => "WindowCaptionForegroundDisabled",
-                _ => "WindowCaptionForeground"
-            }];
-        };
-        Activated += onActivated;
 
         async Task initializeAsync()
         {

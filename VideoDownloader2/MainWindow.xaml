@@ -22,12 +22,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="AppTitleBar">
-            <Image Source="/Assets/WindowIcon.ico" HorizontalAlignment="Left" Width="16" Height="16" Margin="8,0"/>
-            <TextBlock x:Name="AppTitleBarText" VerticalAlignment="Center" TextWrapping="NoWrap" Style="{StaticResource CaptionTextBlockStyle}" Margin="32, 0, 0, 0">
-                Video Downloader 2
-            </TextBlock>
-        </Grid>
+        <TitleBar Grid.Row="0" Title="Video Downloader 2">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/WindowIcon.ico"/>
+            </TitleBar.IconSource>
+        </TitleBar>
 
         <CommandBar Grid.Row="1" OverflowButtonVisibility="Collapsed" DefaultLabelPosition="Right" HorizontalAlignment="Left"
                     Visibility="{x:Bind helpers:ViewBindingHelpers.ToInvertedVisibility(Updating), Mode=OneWay}">
