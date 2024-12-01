@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "VideoDownloader2 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "VideoDownloader2 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
