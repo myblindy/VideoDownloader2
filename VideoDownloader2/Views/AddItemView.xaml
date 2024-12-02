@@ -9,8 +9,13 @@
     xmlns:helpers="using:VideoDownloader2.Helpers" 
     xmlns:metadata="using:YoutubeDLSharp.Metadata" 
     xmlns:vms="using:VideoDownloader2.ViewModels" 
-    xmlns:communityControls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:communityControls="using:CommunityToolkit.WinUI.Controls" 
+    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid Visibility="{x:Bind helpers:ViewBindingHelpers.ToInvertedVisibility(ViewModel.Querying), Mode=OneWay}"
@@ -39,10 +44,21 @@
                          SelectedItem="{x:Bind ViewModel.SelectedFormat, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="metadata:FormatData">
-                            <TextBlock>
-                                <Run Text="{x:Bind Width}"/>x<Run Text="{x:Bind Height}"/> <Run Text="{x:Bind DynamicRange}"/>, <Run Text="{x:Bind FrameRate}"/> fps<LineBreak/>
-                                <Run Text="{x:Bind helpers:ViewBindingHelpers.PrettyFileSize(FileSize)}"/> (<Run Text="{x:Bind VideoCodec}"/> <Run Text="{x:Bind Extension}"/>)
-                            </TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Margin="0,0,5,0"
+                                               Text="{x:Bind local:AddItemView.PrettyResolutionFramerateText(Width, Height, FrameRate)}"/>
+                                    <Grid>
+                                        <Border BorderBrush="Yellow" BorderThickness="2" Background="Black" CornerRadius="3" Margin="0,0,5,0"
+                                                Visibility="{x:Bind local:AddItemView.HdrFlagVisiblity(DynamicRange)}">
+                                            <TextBlock Text="{x:Bind DynamicRange}" Foreground="Yellow"/>
+                                        </Border>
+                                        <TextBlock Text="{x:Bind DynamicRange}"
+                                                   Visibility="{x:Bind local:AddItemView.HdrTextVisibility(DynamicRange)}"/>
+                                    </Grid>
+                                </StackPanel>
+                                <TextBlock><Run Text="{x:Bind helpers:ViewBindingHelpers.PrettyFileSize(FileSize)}"/> (<Run Text="{x:Bind VideoCodec}"/> <Run Text="{x:Bind Extension}"/>)</TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

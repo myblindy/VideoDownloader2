@@ -48,10 +48,15 @@ public sealed partial class MainWindow : Window
     {
         try
         {
+            mainView.Visibility = Visibility.Collapsed;
             addItemView.Visibility = Visibility.Visible;
             if (await addItemViewModel.GetDownloadDetailsAsync() is { } details)
                 mainViewModel.AddNewDownload(details);
         }
-        finally { addItemView.Visibility = Visibility.Collapsed; }
+        finally
+        {
+            mainView.Visibility = Visibility.Visible;
+            addItemView.Visibility = Visibility.Collapsed;
+        }
     }
 }
